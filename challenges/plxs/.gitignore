@@ -1,0 +1,6 @@
+# PyCharm IDE Settings
+.idea
+
+# pytest
+__pycache__
+.coverage
