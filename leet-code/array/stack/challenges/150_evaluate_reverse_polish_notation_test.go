@@ -1,5 +1,11 @@
 package challenges
 
+import (
+	"fmt"
+	"strconv"
+	"testing"
+)
+
 /*
 You are given an array of strings tokens that represents an arithmetic
 expression in a Reverse Polish Notation.
@@ -48,6 +54,102 @@ Constraints:
 tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
 */
 
+/*
+We push all the operands onto the stack, when we encounter a value, we check if
+the top of the stack is also a value if it is, we pop the top two off the stack
+as it will be a value followed by an operand. We perform the calculation and
+push it back onto the stack and continue.
+
+since we are working with an array, it is inherently a stack, we just step
+through the array/stack in reverse.
+*/
+
+func evalRPN2(tokens []string) int {
+	if len(tokens) < 3 {
+		val, _ := strconv.ParseInt(tokens[0], 10, 0)
+		return int(val)
+	}
+	for len(tokens) >= 3 {
+		// pop from the stack
+		//left := tokens[0]
+		var calc int64 = 0
+		left, _ := strconv.ParseInt(tokens[0], 10, 0)
+		right, _ := strconv.ParseInt(tokens[1], 10, 0)
+		operand := tokens[2]
+		switch operand {
+		case "+":
+			calc = left + right
+		case "-":
+			calc = left - right
+		case "*":
+			calc = left * right
+		case "/":
+			calc = left / right
+		}
+		tokens = append([]string{fmt.Sprintf("%d", calc)}, tokens[3:]...)
+	}
+	total, _ := strconv.ParseInt(tokens[0], 10, 0)
+	return int(total)
+}
+
 func evalRPN(tokens []string) int {
-	return 0
+	stack := make([]int, 0)
+
+	for i := 0; i < len(tokens); i++ {
+		switch tokens[i] {
+		case "+":
+			stackLen := len(stack)
+			l := stack[stackLen-2]
+			r := stack[stackLen-1]
+			stack = append(stack[:stackLen-2], l+r)
+		case "-":
+			stackLen := len(stack)
+			l := stack[stackLen-2]
+			r := stack[stackLen-1]
+			stack = append(stack[:stackLen-2], l-r)
+		case "*":
+			stackLen := len(stack)
+			l := stack[stackLen-2]
+			r := stack[stackLen-1]
+			stack = append(stack[:stackLen-2], l*r)
+		case "/":
+			stackLen := len(stack)
+			l := stack[stackLen-2]
+			r := stack[stackLen-1]
+			stack = append(stack[:stackLen-2], l/r)
+		default:
+			v, _ := strconv.ParseInt(tokens[i], 10, 0)
+			stack = append(stack, int(v))
+		}
+	}
+	return stack[0]
+}
+
+func TestEvalRPN(t *testing.T) {
+	tests := []struct {
+		in  []string
+		out int
+	}{
+		{
+			in:  []string{"2", "1", "+", "3", "*"},
+			out: 9,
+		},
+		{
+			in:  []string{"4", "13", "5", "/", "+"},
+			out: 6,
+		},
+		{
+			in:  []string{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"},
+			out: 22,
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run("", func(t *testing.T) {
+			out := evalRPN(tc.in)
+			if out != tc.out {
+				t.Errorf("expected value %d got %d", tc.out, out)
+			}
+		})
+	}
 }
