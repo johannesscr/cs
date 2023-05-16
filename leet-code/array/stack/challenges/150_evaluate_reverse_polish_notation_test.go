@@ -92,6 +92,13 @@ func evalRPN2(tokens []string) int {
 	return int(total)
 }
 
+/*
+we step through the array of tokens and add each token to the stack of values
+when we encounter an operand, the top two values in the stack are popped off
+the value is calculated and the value is push onto the stack. This process
+is continued until we have stepped through the entire array.
+*/
+
 func evalRPN(tokens []string) int {
 	stack := make([]int, 0)
 
