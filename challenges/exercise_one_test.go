@@ -1,4 +1,4 @@
-package problem_solving
+package challenges
 
 import "testing"
 

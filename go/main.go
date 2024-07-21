@@ -1,20 +1,14 @@
 package main
 
-import (
-	"fmt"
-	"net/http"
-	"net/url"
-)
-
-type Service struct {
-	URL     url.URL
-	Values  url.Values
-	Headers http.Header
-}
-
-func (s *Service) GetEnv() {
-	fmt.Println("read env")
-}
+//type Service struct {
+//	URL     url.URL
+//	Values  url.Values
+//	Headers http.Header
+//}
+//
+//func (s *Service) GetEnv() {
+//	fmt.Println("read env")
+//}
 
 // here we cannot access the GetEnv method.. why not?? surely they are the same
 // type?
@@ -35,11 +29,11 @@ func (s *Service) GetEnv() {
 
 // now we can mock anything that is able to set the host and scheme
 
-type MicroService Service
-
-func (ms *MicroService) Set() {}
+//type MicroService Service
+//
+//func (ms *MicroService) Set() {}
 
 func main() {
-	ms := &MicroService{}
-	ms.Set()
+	//ms := &MicroService{}
+	//ms.Set()
 }

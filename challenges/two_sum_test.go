@@ -1,4 +1,4 @@
-package code_challenge
+package challenges
 
 import (
 	"fmt"

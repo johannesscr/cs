@@ -1,4 +1,4 @@
-package problem_solving
+package challenges
 
 /*
 	#1: Sort10 schools around your house by distance
