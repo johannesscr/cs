@@ -1,5 +1,54 @@
 # Algorithms
 
+## Table of Contents
+
+1. Algorithm Patterns
+2. Software Patterns
+
+## Algorithm Patterns
+
+> [See YouTube on 8 patterns](https://www.youtube.com/watch?v=xo7XrRVxH8Y)
+
+1. Two Pointer
+2. Binary Tree BFS
+3. Topological Sort
+4. Binary Tree DFS
+5. Top `k` Elements
+6. Modified Binary Search
+7. Subset
+8. Sliding Window
+
+## Software Patterns
+
+> [See YouTube on 5 patterns](https://www.youtube.com/watch?v=YMAwgRwjEOQ)
+
+1. Creational Patterns
+   2. Factory Method
+   3. Abstract Method
+   4. Builder
+   5. Prototype
+   6. Singleton
+7. Structural
+   8. Adapter
+   9. Bridge
+   10. Composite
+   11. Decorator
+   12. Facade
+   13. Flyweight
+   14. Proxy
+15. Behavioural
+    16. Chain of Responsibility
+    17. Command
+    18. Interperter
+    19. Iterator
+    20. Mediator
+    21. Memento
+    22. Observer
+    23. State
+    24. Strategy
+    25. Template Method
+    26. Visitor
+
 ## Recursion
 Here is the quickest example
 
