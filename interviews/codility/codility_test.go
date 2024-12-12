@@ -1,4 +1,4 @@
-package codechallenges
+package codility
 
 import "testing"
 
@@ -355,29 +355,29 @@ func BenchmarkPollutionFilters4(b *testing.B) {
 
 func TestMinCarAllocation(t *testing.T) {
 	tt := []struct {
-		name string
-		p []int
-		s []int
+		name   string
+		p      []int
+		s      []int
 		output int
 	}{
 		{
-			p: []int{},
-			s: []int{},
+			p:      []int{},
+			s:      []int{},
 			output: 0,
 		},
 		{
-			p: []int{1, 5, 2},
-			s: []int{1, 6, 4},
+			p:      []int{1, 5, 2},
+			s:      []int{1, 6, 4},
 			output: 2,
 		},
 		{
-			p: []int{1, 5, 2, 1, 1},
-			s: []int{1, 6, 4, 2, 2},
+			p:      []int{1, 5, 2, 1, 1},
+			s:      []int{1, 6, 4, 2, 2},
 			output: 2,
 		},
 		{
-			p: []int{1, 5, 2, 1, 1},
-			s: []int{1, 6, 3, 2, 2},
+			p:      []int{1, 5, 2, 1, 1},
+			s:      []int{1, 6, 3, 2, 2},
 			output: 3,
 		},
 	}

@@ -1,4 +1,4 @@
-package codechallenges
+package codility
 
 import (
 	"sort"
@@ -44,9 +44,9 @@ func sumInts(x ...int) int {
 func MinCarAllocation(p, s []int) int {
 	l := len(s)
 	totalPeople := sumInts(p...)
-	sort.Ints(s)  // sort form
+	sort.Ints(s) // sort form
 	n := 0
-	for i := l-1; i >= 0; i-- {
+	for i := l - 1; i >= 0; i-- {
 		if totalPeople <= 0 {
 			break
 		}
@@ -129,7 +129,7 @@ func PollutionFilters3(fi []int) int {
 		i := findMax(f)
 		f[i] = f[i] / 2
 		n = n + 1
-		cost = cost - f[i]  // reduce cost by amount that has halved
+		cost = cost - f[i] // reduce cost by amount that has halved
 	}
 	return n
 }
