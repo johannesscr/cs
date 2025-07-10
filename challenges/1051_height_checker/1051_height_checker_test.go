@@ -1,4 +1,4 @@
-package challenges
+package _051_height_checker
 
 import (
 	"sort"

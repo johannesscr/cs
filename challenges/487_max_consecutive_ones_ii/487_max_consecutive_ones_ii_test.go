@@ -1,4 +1,4 @@
-package max_consecutive_ones_ii
+package _87_max_consecutive_ones_ii
 
 import (
 	"fmt"
