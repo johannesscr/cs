@@ -1,6 +1,8 @@
 package _24_find_pivot_index
 
 import (
+	"fmt"
+	"runtime"
 	"testing"
 )
 
@@ -80,6 +82,11 @@ func TestPivotIndex(t *testing.T) {
 			nums: []int{-1, -1, -1, -1, -1, 0},
 			out:  2,
 		},
+		{
+			name: "five",
+			nums: []int{-1, -1, -1, 0, -1, -1},
+			out:  2,
+		},
 	}
 
 	for _, test := range tests {
@@ -92,7 +99,7 @@ func TestPivotIndex(t *testing.T) {
 	}
 }
 
-func pivotIndex(nums []int) int {
+func pivotIndexI(nums []int) int {
 	pivot := len(nums) / 2
 	left := 0
 	right := 0
@@ -122,12 +129,174 @@ func pivotIndex(nums []int) int {
 			// Shift the pivot to the right
 			pivot++
 		}
+
+		// If we have reach the end of the array, set the left or right sum
+		// to 0.
 		if pivot == 0 {
 			left = 0
 		}
 		if pivot == len(nums)-1 {
 			right = 0
 		}
+	}
+
+	return -1
+}
+
+/*
+APPROACH TWO
+Brute Force
+
+Step
+*/
+
+func pivotIndexII(nums []int) int {
+	pivot := len(nums) / 2
+	left := 0
+	right := 0
+
+	for i := 0; i < pivot; i++ {
+		if i < pivot {
+			left += nums[i]
+		}
+		if len(nums)-i-1 > pivot {
+			right += nums[len(nums)-i-1]
+		}
+	}
+
+	basePivot := pivot
+	baseLeft := left
+	baseRight := right
+	direction := 1
+
+	for pivot > -1 && pivot < len(nums)-1 {
+		//fmt.Printf("pivot: %d left: %d right: %d\t%v\tnum: %d\n", pivot, left, right, nums, nums[pivot])
+		if left == right {
+			return pivot
+		}
+
+		// Only change direction after we have not found a solution to the left.
+		if pivot == 0 && direction == 1 {
+			// We were unable to find a solution to the left.
+			direction = -1
+			// Start again from the initial pivot and search to the right.
+			pivot = basePivot
+			left = baseLeft
+			right = baseRight
+		}
+
+		if direction == 1 {
+			left -= nums[pivot]
+			right += nums[pivot+1]
+			// Shift the pivot to the left
+			pivot--
+		} else {
+			left += nums[pivot]
+			right -= nums[pivot+1]
+			// Shift the pivot to the right
+			pivot++
+		}
+		fmt.Printf("pivot: %d left: %d right: %d\t%v\tnum: %d\n", pivot, left, right, nums, nums[pivot])
+
+		// If we have reach the end of the array, set the left or right sum
+		// to 0.
+		if pivot == 0 {
+			left = 0
+		}
+		if pivot == len(nums)-1 {
+			right = 0
+		}
+	}
+
+	return -1
+}
+
+func calc(nums []int, pivot int) (left, right int) {
+	for i := 0; i < len(nums); i++ {
+		if i < pivot {
+			left += nums[i]
+		}
+		if pivot < len(nums)-i-1 {
+			right += nums[len(nums)-i-1]
+		}
+	}
+	return left, right
+}
+
+func pivotIndex(nums []int) int {
+	for i := 0; i < len(nums); i++ {
+		left, right := calc(nums, i)
+		if left == right {
+			return i
+		}
+	}
+
+	return -1
+}
+
+/*
+APPROACH FOUR
+Most memory effiecient
+*/
+
+func pivotIndexIIII(nums []int) int {
+	// Strategy
+	// Option 1:
+	// Brute force this with two for loops
+
+	// Option 2:
+	// Try some dynamic programming approach
+	// Pre calculate:
+	// Input: [1,7,3,6,5,6]
+	// DP: [1,8,11,17,22,28]
+	// e.g. index 0
+	// left 0
+	// dp[len-1]-nums[i] = 26
+	// e.g. index 3
+	// left dp[i-1] = 11
+	// right dp[len-1]=28 - dp[i]=17 = 11
+
+	runtime.GC()
+
+	var totalSum int
+	for i := range nums {
+		totalSum += nums[i]
+	}
+
+	currSum := 0
+	for i := 0; i < len(nums); i++ {
+		if currSum == totalSum-currSum-nums[i] {
+			return i
+		}
+
+		currSum += nums[i]
+	}
+
+	return -1
+}
+
+/*
+APPROACH FIVE
+Fastest
+*/
+func pivotIndexIIIII(nums []int) int {
+	left := 0
+	right := 0
+
+	for _, num := range nums {
+		right += num
+	}
+
+	for i, num := range nums {
+		// Subtract the num (which is the pivot) from the right total so that
+		// we do not include the pivot in the right sum.
+		if left == right-num {
+			return i
+		}
+		// Add the num to the left and subtract from the right, similar to
+		// moving the pivot and recalculating.
+		left += num
+		right -= num
 	}
 
 	return -1
