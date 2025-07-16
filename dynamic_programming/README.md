@@ -25,7 +25,7 @@ Determining whether dynamic programming and memoization is applicable:
 4. Memoize sub problems?
 5. \*Demand a raise from your boss!
 
-Some Leetcode questions
+Some Leet Code questions
 1. [house robber](https://leetcode.com/problems/house-robber/)
 2. [best time to buy and sell stocks](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 3. [climbing stairs](https://leetcode.com/problems/climbing-stairs/)
